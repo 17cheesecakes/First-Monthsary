@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b3a">
+<title>A Little World for You ✨</title>
+<style>
+  :root{
+    --night:#071b28; --deep:#102d3a; --teal:#8de7d1; --mint:#c4f4df;
+    --lav:#c8c6ff; --rose:#ffd3df; --cream:#fff5e9; --glass:rgba(12,35,48,.64);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;color:var(--cream);font-family: ui-rounded, "Trebuchet MS", system-ui, sans-serif;
+    background:radial-gradient(ellipse at 15% 5%,#235b63 0,transparent 35%),
+               radial-gradient(ellipse at 85% 20%,#433d6a 0,transparent 38%),
+               linear-gradient(160deg,#071722,#102c3c 48%,#17263e); min-height:100vh; overflow-x:hidden}
+  .aurora{position:fixed;inset:-20% -10% auto;height:65vh;pointer-events:none;filter:blur(42px);opacity:.48;z-index:-1;
+    background:linear-gradient(115deg,transparent 8%,rgba(76,230,181,.18) 25%,rgba(130,244,205,.45) 37%,rgba(145,138,255,.32) 54%,rgba(255,179,215,.18) 68%,transparent 82%);
+    transform:rotate(-8deg);animation:glow 12s ease-in-out infinite alternate}
+  @keyframes glow{from{transform:translateX(-4%) rotate(-8deg) scale(1)}to{transform:translateX(5%) rotate(-2deg) scale(1.1)}}
+  .stars,.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.6;animation:twinkle 3s infinite alternate}
+  @keyframes twinkle{to{opacity:.15;transform:scale(.6)}}
+  .heart{position:absolute;bottom:-30px;animation:floatUp linear forwards;opacity:.55;color:#b6f7e3}
+  @keyframes floatUp{to{transform:translateY(-110vh) rotate(35deg);opacity:0}}
+  main{position:relative;z-index:1;width:min(900px,92%);margin:auto;padding:30px 0 65px}
+  .pill{display:inline-flex;gap:8px;align-items:center;border:1px solid #a4e8d64f;background:#b8f7e50d;border-radius:999px;padding:8px 13px;color:#d7fff1;font-size:.85rem;letter-spacing:.04em}
+  .hero{min-height:87vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:35px 8px}
+  h1{font-size:clamp(2.8rem,9vw,5.7rem);line-height:.99;letter-spacing:-.055em;margin:24px 0 18px;font-weight:800}
+  .gradient{background:linear-gradient(100deg,#d5fff1,#a8e9dc 35%,#d6ccff 70%,#ffd9e7);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .subtitle{font-size:clamp(1rem,3vw,1.2rem);line-height:1.8;color:#d6e9e9;max-width:580px}
+  button,.button{border:0;border-radius:999px;padding:14px 22px;background:linear-gradient(100deg,#a8f1d8,#d4d0ff);color:#102b38;font-weight:800;font-size:1rem;cursor:pointer;box-shadow:0 10px 35px #6ce8d22b;transition:transform .2s,filter .2s;text-decoration:none;display:inline-block}
+  button:hover,.button:hover{transform:translateY(-2px);filter:brightness(1.05)}
+  .soft-button{background:#d7fff113;color:#e8fff8;border:1px solid #b3f7e55c;box-shadow:none}
+  .hint{color:#b7d1d6;font-size:.84rem;margin-top:13px}
+  section{margin:22px 0;padding:clamp(22px,5vw,42px);border:1px solid #d3fff31b;border-radius:28px;background:linear-gradient(145deg,rgba(17,48,61,.76),rgba(15,31,52,.64));box-shadow:0 18px 65px #00000018;backdrop-filter:blur(12px)}
+  h2{font-size:clamp(1.7rem,5vw,2.6rem);margin:0 0 14px;letter-spacing:-.035em}
+  p{line-height:1.8;color:#d8e9e8}
+  .eyebrow{text-transform:uppercase;letter-spacing:.17em;font-size:.72rem;color:#a9f0dc;font-weight:800}
+  .two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .card{border:1px solid #b9f5e526;border-radius:20px;padding:19px;background:#d3fff307}
+  .card .icon{font-size:1.5rem}
+  .card h3{margin:9px 0 6px;color:#e7fff7;font-size:1.02rem}
+  .card p{font-size:.92rem;margin:0;color:#c8dcde}
+  .reasons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .reason{min-height:88px;text-align:left;border-radius:17px;padding:15px;background:#d7fff10b;border:1px solid #c2fff02b;color:#effff9;box-shadow:none;font-weight:600}
+  .reason span{display:block;font-size:.78rem;color:#aee9dc;margin-bottom:7px}
+  .hidden-note{display:none;margin-top:18px;padding:20px;border-radius:18px;background:#8de7d112;border:1px solid #b6f7e54a;color:#f4fffb;line-height:1.8}
+  .letter{font-family:Georgia,serif;font-size:1.08rem;line-height:2;color:#f5eee9}
+  .photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .polaroid{padding:9px 9px 15px;background:#f7f1e7;color:#30414a;border-radius:7px;transform:rotate(-2deg);box-shadow:0 8px 25px #0003}
+  .polaroid:nth-child(2){transform:rotate(2.5deg);margin-top:12px}
+  .polaroid:nth-child(3){transform:rotate(-1deg);margin-top:3px}
+  .photo-placeholder{height:125px;display:grid;place-items:center;text-align:center;padding:8px;background:linear-gradient(135deg,#8acbbd,#c7c2f4);color:#17313b;font-size:.9rem}
+  .polaroid small{display:block;text-align:center;padding-top:10px;font-family:Georgia,serif}
+  .footer{text-align:center;padding:30px 10px;color:#a8c4ca;font-size:.85rem}
+  .edit-tip{border-left:3px solid #9fead7;padding:10px 14px;background:#b6f5e80d;border-radius:0 12px 12px 0;font-size:.9rem}
+  .hidden{display:none!important}
+  @media(max-width:560px){.two-col,.reasons{grid-template-columns:1fr}.photo-grid{grid-template-columns:1fr 1fr}.photo-grid .polaroid:last-child{display:none}.hero{min-height:80vh}.photo-placeholder{height:110px}}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="aurora"></div><div class="stars" id="stars"></div><div class="hearts" id="hearts"></div>
+<main>
+  <header class="hero" id="top">
+    <span class="pill">✦ MADE WITH LOVE · INDIA 🇮🇳 × PHILIPPINES 🇵🇭</span>
+    <h1>A little world<br><span class="gradient">just for you.</span></h1>
+    <p class="subtitle">For my favourite person, and for the first little chapter of our story. Even with miles between us, you make my world feel warmer. 🌌</p>
+    <button onclick="openSurprise()">Open your surprise ✉️</button>
+    <div class="hint">A tiny corner of the universe, made just for you.</div>
+  </header>
+
+  <div id="content" class="hidden">
+    <section>
+      <div class="eyebrow">Chapter one · us</div>
+      <h2>Happy first monthsary, <span class="gradient" id="herNameHeading">Kinderjoy</span> 💚</h2>
+      <p>One month might sound small to the world, but it means something to me because it's one month of getting to know you, laughing with you, and finding new reasons to be happy that you're in my life.</p>
+      <p>We're in different countries, under different skies, but I'm grateful that somehow our paths crossed. I hope this little page makes you feel as special as you are to me.</p>
+      <div class="edit-tip">✨ Personalise this page by editing the text in <strong>index.html</strong> before you publish it. Replace the sample name and messages with your own words.</div>
+    </section>
+
+    <section>
+      <div class="eyebrow">Little things that mean a lot</div>
+      <h2>Our tiny universe 🌙</h2>
+      <div class="two-col">
+        <div class="card"><div class="icon">🌌</div><h3>Two places, one story</h3><p>India to the Philippines — a lot of distance, but still so many little moments we get to share.</p></div>
+        <div class="card"><div class="icon">☁️</div><h3>A soft place to land</h3><p>I hope I can be someone you can talk to, laugh with, and feel comfortable being yourself around.</p></div>
+        <div class="card"><div class="icon">✨</div><h3>Still just the beginning</h3><p>There's so much more to learn about each other, and I'm excited for all the memories we haven't made yet.</p></div>
+        <div class="card"><div class="icon">🫶</div><h3>Little things, always</h3><p>It's the conversations, the jokes, the check-ins, and the ordinary moments that make this feel special.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="eyebrow">Tap to reveal</div>
+      <h2>10 little reasons I adore you 💗</h2>
+      <p>Tap each star. You can replace these with specific things you love about her.</p>
+      <div class="reasons" id="reasons"></div>
+    </section>
+
+    <section>
+      <div class="eyebrow">A note from across the sea</div>
+      <h2>A little letter for you 💌</h2>
+      <p>Some things feel better when they're said slowly. Open this whenever you want a reminder that someone is thinking of you.</p>
+      <button class="soft-button" onclick="toggleLetter()">Unfold your letter</button>
+      <div class="hidden-note" id="letter">
+        <div class="letter">Dear Kinderjoy,<br><br>
+        Happy first monthsary. ❤️ I know I can't be beside you today, so I made this little corner of the internet for you instead. I hope it brings you a smile and reminds you that the distance doesn't stop me from appreciating you.<br><br>
+        Thank you for being part of my days, for the moments we've shared, and for giving this little story a beginning. I don't expect us to be perfect — I just hope we keep being honest, kind, patient, and excited to learn more about each other.<br><br>
+        Here's to our first month, and to all the little memories still waiting for us. Until we can celebrate in the same place, I'm sending you the biggest virtual smile from India. 🌌<br><br>
+        With love,<br>Your person 💚</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="eyebrow">Memory corner</div>
+      <h2>Little snapshots 📸</h2>
+      <p>Swap these placeholders for your favourite photos or screenshots. Only use pictures you're both comfortable sharing.</p>
+      <div class="photo-grid">
+        <div class="polaroid"><div class="photo-placeholder">Add your favourite<br>photo here</div><small>one of my favourites</small></div>
+        <div class="polaroid"><div class="photo-placeholder">Add a cute<br>memory here</div><small>our little moments</small></div>
+        <div class="polaroid"><div class="photo-placeholder">Add an inside<br>joke or photo</div><small>just us ✨</small></div>
+      </div>
+    </section>
+
+    <section style="text-align:center">
+      <div class="eyebrow">One last thing</div>
+      <h2>Will you keep making memories with me? 🌠</h2>
+      <p>More laughs, more late-night talks, more little surprises, and more chapters — one day at a time.</p>
+      <button onclick="finalSurprise()">Tap for one last surprise 💚</button>
+      <div class="hidden-note" id="finalMessage">Happy first monthsary, Kinderjoy. You are a lovely part of my story, and I'm really glad we're writing it. 🌌💚</div>
+    </section>
+  </div>
+  <footer class="footer">Made under one sky, from India with love ✦</footer>
+</main>
+<script>
+  const reasons = [
+    ["01","Your smile"],
+    ["02","The way you make me laugh"],
+    ["03","Your kindness"],
+    ["04","How I can be myself with you"],
+    ["05","Our little inside jokes"],
+    ["06","The way you tell me about your day"],
+    ["07","Your unique way of seeing things"],
+    ["08","The little things you remember"],
+    ["09","How we're learning about each other"],
+    ["10","Simply being you"]
+  ];
+  const reasonsEl = document.getElementById('reasons');
+  reasons.forEach(([num, title], i) => {
+    const b = document.createElement('button');
+    b.className = 'reason';
+    b.innerHTML = `<span>✦ REASON ${num}</span>${title}`;
+    b.onclick = () => {
+      const messages = [
+        "Your smile has a way of making a moment feel brighter.",
+        "I love that we can be silly and laugh together.",
+        "The care you show people says a lot about your heart.",
+        "I hope you always feel free to be your real self with me.",
+        "Our inside jokes make ordinary conversations feel like ours.",
+        "I like getting little glimpses into your everyday world.",
+        "There's something special about the way you think.",
+        "Small details can make someone feel seen and appreciated.",
+        "We're building something by learning about each other, one day at a time.",
+        "You don't have to be anyone else to be worth appreciating."
+      ];
+      let note = b.querySelector('.revealed');
+      if (!note) {
+        note = document.createElement('div');
+        note.className = 'revealed';
+        note.style.cssText = 'font-weight:400;line-height:1.6;margin-top:10px;color:#c8f5e8;font-size:.9rem';
+        note.textContent = messages[i];
+        b.appendChild(note);
+      } else note.remove();
+    };
+    reasonsEl.appendChild(b);
+  });
+  function openSurprise(){ document.getElementById('content').classList.remove('hidden'); document.getElementById('content').scrollIntoView({behavior:'smooth'}); burstHearts(); }
+  function toggleLetter(){ const el=document.getElementById('letter'); el.style.display=el.style.display==='block'?'none':'block'; if(el.style.display==='block') el.scrollIntoView({behavior:'smooth',block:'center'}); }
+  function finalSurprise(){ const el=document.getElementById('finalMessage'); el.style.display='block'; burstHearts(28); el.scrollIntoView({behavior:'smooth',block:'center'}); }
+  function burstHearts(count=14){
+    const box=document.getElementById('hearts');
+    for(let i=0;i<count;i++){ const h=document.createElement('span'); h.className='heart'; h.textContent=['♡','♥','✦','💚'][Math.floor(Math.random()*4)]; h.style.left=Math.random()*100+'%'; h.style.fontSize=(12+Math.random()*20)+'px'; h.style.animationDuration=(4+Math.random()*4)+'s'; box.appendChild(h); setTimeout(()=>h.remove(),8500); }
+  }
+  const stars=document.getElementById('stars');
+  for(let i=0;i<65;i++){const s=document.createElement('span');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=(Math.random()*4)+'s';stars.appendChild(s);}
+  setInterval(()=>{ if(!document.hidden) burstHearts(2); },3500);
+</script>
+</body>
+</html>
